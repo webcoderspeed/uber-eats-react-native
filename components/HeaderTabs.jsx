@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
+import { View, Text,  TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import { StyledComponent } from 'nativewind';
 
@@ -9,8 +9,8 @@ const HeaderTabs = () => {
 
   return (
     <StyledComponent
-      className='flex-row justify-center items-center '
-      component={SafeAreaView}
+      className='flex-row justify-center items-center'
+      component={View}
     >
       <HeaderButton title='Delivery' 
         activeTab={activeTab}

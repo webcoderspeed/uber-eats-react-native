@@ -1,11 +1,11 @@
 import { View, Text } from 'react-native';
 import React from 'react';
-import HeaderTabs from './components/HeaderTabs';
+import Home from './screens/Home';
 
 const App = () => {
   return (
     <View>
-      <HeaderTabs />
+      <Home />
     </View>
   );
 };
