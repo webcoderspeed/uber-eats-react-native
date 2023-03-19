@@ -3,19 +3,28 @@ import React from 'react';
 import { foods } from './About';
 import { Divider } from 'react-native-elements';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
+import { useDispatch } from 'react-redux';
+import { addItemToCart } from '../../store/actions/cart.actions';
 
-const MenuItems = () => {
+const MenuItems = ({ restaurantName }) => {
+  const dispatch = useDispatch();
+
+
+
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       {foods?.map((food, index) => (
         <View
-          className='flex-row justify-between m-[10px]  w-full'
+          className='flex-row justify-between m-[10px] mx-[20px] w-full'
           key={index}
         >
-          <BouncyCheckbox 
-            iconStyle={{borderColor: 'lightgray', borderRadius:0}}
+          <BouncyCheckbox
+            iconStyle={{ borderColor: 'lightgray', borderRadius: 0 }}
             fillColor='green'
             innerIconStyle={{ borderColor: 'lightgray', borderRadius: 0 }}
+            onPress={(checkboxValue) =>
+              addItemToCart({ dispatch, item: { ...food, restaurantName, checkboxValue } })
+            }
           />
           <FoodInfo food={food} />
           <FoodImage food={food} />
