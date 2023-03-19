@@ -11,7 +11,8 @@ const YELP_API_KEY =
 
 const Home = () => {
   const [restaurantData, setRestaurantData] = useState([]);
-  const [search, setSearch] = useState('Las Vegas');
+  const [search, setSearch] = useState('New York');
+  const [activeTab, setActiveTab] = useState('Delivery');
 
   useEffect(() => {
     const getRestaurantFromYelp = () => {
@@ -25,12 +26,16 @@ const Home = () => {
       )
         .then((res) => res.json())
         .then((data) => {
-          setRestaurantData(data.businesses);
+          const filteredData = data?.businesses?.filter((business) =>
+            business?.transactions?.includes(activeTab?.toLowerCase())
+          );
+
+          setRestaurantData(filteredData);
         });
     };
 
     getRestaurantFromYelp();
-  }, [search]);
+  }, [search, activeTab]);
 
   return (
     <SafeAreaView className='bg-gray-100 h-full pt-8'>
@@ -38,7 +43,12 @@ const Home = () => {
         className='bg-white p-3'
         component={View}
       >
-        <HeaderTabs />
+        <HeaderTabs
+          {...{
+            activeTab,
+            setActiveTab,
+          }}
+        />
         <SearchBar
           search={search}
           setSearch={setSearch}
