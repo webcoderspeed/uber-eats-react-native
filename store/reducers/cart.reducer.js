@@ -19,6 +19,9 @@ const cartReducer = (state = defaultState, action) => {
 
           return newState;
         } else {
+
+
+
           newState.selectedItems = {
             items: [
               ...newState.selectedItems.items.filter(
@@ -27,6 +30,8 @@ const cartReducer = (state = defaultState, action) => {
             ],
             restaurantName: action.payload.restaurantName,
           };
+
+          return newState
         }
       }
     }
