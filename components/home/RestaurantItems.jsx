@@ -3,24 +3,29 @@ import React, { useState } from 'react';
 import { StyledComponent } from 'nativewind';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const RestaurantItems = ({ restaurants }) => {
+const RestaurantItems = ({ restaurants, navigation }) => {
   return (
-    <StyledComponent
-      component={TouchableOpacity}
-      activeOpacity={1}
-      className='my-2'
-    >
+    <>
       {restaurants?.map((restaurant, index) => (
         <StyledComponent
-          component={View}
-          className='bg-white p-4'
+          component={TouchableOpacity}
+          activeOpacity={1}
+          className='my-2'
           key={index}
+          onPress={() =>
+            navigation.navigate('RestaurantDetail', { restaurant })
+          }
         >
-          <RestaurantImage image_url={restaurant.image_url} />
-          <RestaurantInfo {...restaurant} />
+          <StyledComponent
+            component={View}
+            className='bg-white p-4'
+          >
+            <RestaurantImage image_url={restaurant.image_url} />
+            <RestaurantInfo {...restaurant} />
+          </StyledComponent>
         </StyledComponent>
       ))}
-    </StyledComponent>
+    </>
   );
 };
 
@@ -61,7 +66,6 @@ const RestaurantInfo = ({
   categories,
   ...props
 }) => {
-
   return (
     <StyledComponent
       component={View}

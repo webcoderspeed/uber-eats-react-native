@@ -1,7 +1,7 @@
 import { View, Text, Image } from 'react-native';
 import React from 'react';
 
-const foods = [
+export const foods = [
   {
     title: 'Lasagna',
     description: 'With butter lettuce, tomato and sauce bechamel',
@@ -41,12 +41,23 @@ const foods = [
   },
 ];
 
-const About = () => {
+const About = ({ route }) => {
+  const { name, categories, image_url, price, rating, review_count } =
+    route?.params?.restaurant;
+
+  const formattedCategories = categories
+    ?.map((category) => category.title)
+    ?.join(' • ');
+
+  const description = `${formattedCategories} ${
+    price ? ' • ' + price : ''
+  } • ${rating} ⭐ (${review_count}+)`;
+
   return (
     <View>
-      <RestaurantImage image={foods[0]?.image} />
-      <RestaurantTitle title={foods[0].title} />
-      <RestaurantDescription description={foods[0].description} />
+      <RestaurantImage image={image_url} />
+      <RestaurantTitle title={name} />
+      <RestaurantDescription description={description} />
     </View>
   );
 };
